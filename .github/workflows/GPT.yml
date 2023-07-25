@@ -29,22 +29,25 @@ jobs:
 
       - name: Build and push
         run: |
-          echo "Iniciando construcción de la imagen..."
-          # Construir y etiquetar la imagen con Docker Buildx
-          docker buildx build --platform linux/amd64,linux/arm64 -t ${{ secrets.DOCKER_USER }}/${{ env.SERVICE_NAME }}:${{ env.SERVICE_VERSION }} .
+          echo "🔨 Building Docker image..."
+          docker buildx build --platform linux/amd64,linux/arm64 --output type=docker -t ${{ env.SERVICE_NAME }}:${{ env.SERVICE_VERSION }} .
+          echo "✅ Docker image built successfully."
 
-          echo "Etiquetando la imagen para GitHub Container Registry..."
-          # Etiquetar la imagen para GitHub Container Registry
-          docker tag ${{ secrets.DOCKER_USER }}/${{ env.SERVICE_NAME }}:${{ env.SERVICE_VERSION }} ghcr.io/${{ github.repository_owner }}/${{ env.SERVICE_NAME }}:${{ env.SERVICE_VERSION }}
+          echo "🏷️ Tagging the image for GitHub Container Registry..."
+          docker tag ${{ env.SERVICE_NAME }}:${{ env.SERVICE_VERSION }} ghcr.io/${{ github.repository_owner }}/${{ env.SERVICE_NAME }}:${{ env.SERVICE_VERSION }}
+          echo "✅ Image tagged for GitHub Container Registry."
 
-          echo "Empujando las imágenes a Docker Hub y GitHub Container Registry..."
-          # Hacer push de las imágenes a Docker Hub y GitHub Container Registry
-          docker push ${{ secrets.DOCKER_USER }}/${{ env.SERVICE_NAME }}:${{ env.SERVICE_VERSION }}
+          echo "🚀 Pushing the images to Docker Hub and GitHub Container Registry..."
+          docker push ${{ env.SERVICE_NAME }}:${{ env.SERVICE_VERSION }}
           docker push ghcr.io/${{ github.repository_owner }}/${{ env.SERVICE_NAME }}:${{ env.SERVICE_VERSION }}
+          echo "✅ Images pushed successfully."
+
         env:
           DOCKER_CLI_ACI_OFFLINE: 1  # Deshabilitar el uso de Docker Analytics
 
       - name: Cleanup
         run: |
+          echo "🧹 Cleaning up..."
           # Eliminar el caché de Buildx para liberar espacio
           docker buildx prune --all --force
+          echo "✅ Cleanup completed."
