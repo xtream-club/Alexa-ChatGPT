@@ -33,15 +33,10 @@ jobs:
           docker buildx build --platform linux/amd64,linux/arm64 -t ${{ env.SERVICE_NAME }}:${{ env.SERVICE_VERSION }} .
           echo "✅ Image built successfully."
 
-          echo "🏷️ Tagging the image for Docker Hub..."
+          echo "🚀 Pushing the image to Docker Hub and GitHub Container Registry..."
+          docker push ${{ env.SERVICE_NAME }}:${{ env.SERVICE_VERSION }}
           docker tag ${{ env.SERVICE_NAME }}:${{ env.SERVICE_VERSION }} ${{ secrets.DOCKER_USER }}/${{ env.SERVICE_NAME }}:${{ env.SERVICE_VERSION }}
-          echo "✅ Image tagged for Docker Hub."
-
-          echo "🏷️ Tagging the image for GitHub Container Registry..."
           docker tag ${{ env.SERVICE_NAME }}:${{ env.SERVICE_VERSION }} ghcr.io/${{ github.repository_owner }}/${{ env.SERVICE_NAME }}:${{ env.SERVICE_VERSION }}
-          echo "✅ Image tagged for GitHub Container Registry."
-
-          echo "🚀 Pushing images to Docker Hub and GitHub Container Registry..."
           docker push ${{ secrets.DOCKER_USER }}/${{ env.SERVICE_NAME }}:${{ env.SERVICE_VERSION }}
           docker push ghcr.io/${{ github.repository_owner }}/${{ env.SERVICE_NAME }}:${{ env.SERVICE_VERSION }}
           echo "✅ Image pushed to Docker Hub and GitHub Container Registry successfully."
