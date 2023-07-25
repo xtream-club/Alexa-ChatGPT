@@ -29,18 +29,19 @@ jobs:
 
       - name: Build and push
         run: |
-          echo "🔨 Building Docker image..."
-          docker buildx build --platform linux/amd64,linux/arm64 --output type=docker -t ${{ env.SERVICE_NAME }}:${{ env.SERVICE_VERSION }} .
-          echo "✅ Docker image built successfully."
+          echo "🔨 Building and pushing Docker image..."
+          docker buildx build --platform linux/amd64,linux/arm64 -t ${{ env.SERVICE_NAME }}:${{ env.SERVICE_VERSION }} .
+          echo "✅ Image built successfully."
+
+          echo "🏷️ Tagging the image for Docker Hub..."
+          docker tag ${{ env.SERVICE_NAME }}:${{ env.SERVICE_VERSION }} ${{ secrets.DOCKER_USER }}/${{ env.SERVICE_NAME }}:${{ env.SERVICE_VERSION }}
+          docker push ${{ secrets.DOCKER_USER }}/${{ env.SERVICE_NAME }}:${{ env.SERVICE_VERSION }}
+          echo "✅ Image tagged and pushed to Docker Hub successfully."
 
           echo "🏷️ Tagging the image for GitHub Container Registry..."
           docker tag ${{ env.SERVICE_NAME }}:${{ env.SERVICE_VERSION }} ghcr.io/${{ github.repository_owner }}/${{ env.SERVICE_NAME }}:${{ env.SERVICE_VERSION }}
-          echo "✅ Image tagged for GitHub Container Registry."
-
-          echo "🚀 Pushing the images to Docker Hub and GitHub Container Registry..."
-          docker push ${{ env.SERVICE_NAME }}:${{ env.SERVICE_VERSION }}
           docker push ghcr.io/${{ github.repository_owner }}/${{ env.SERVICE_NAME }}:${{ env.SERVICE_VERSION }}
-          echo "✅ Images pushed successfully."
+          echo "✅ Image tagged and pushed to GitHub Container Registry successfully."
 
         env:
           DOCKER_CLI_ACI_OFFLINE: 1  # Deshabilitar el uso de Docker Analytics
