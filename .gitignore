@@ -1,0 +1,19 @@
+# Ignorar archivos y directorios generados por PyCharm
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Ignorar archivos de caché de PyCharm
+*.pyc
+__pycache__/
+
+# Ignorar archivos temporales de PyCharm
+*.bak
+*.swp
+*.~lock.*
+
+# Ignorar archivos de configuración específicos de PyCharm
+*.xml
+*.json
+*.properties
