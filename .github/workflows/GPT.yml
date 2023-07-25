@@ -1,4 +1,4 @@
-name: GPT-SERVICE  # El nombre de la acción ahora se toma del valor de la variable de entorno SERVICE_NAME
+name: gpt_service  # El nombre de la acción ahora se toma del valor de la variable de entorno SERVICE_NAME
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - "master"
 
 env:
-  SERVICE_NAME: GPT-Service  # Definir la variable SERVICE_NAME aquí
+  SERVICE_NAME: gptalexa  # Definir la variable SERVICE_NAME aquí
   SERVICE_VERSION: latest  # Definir la versión del servicio aquí
 
 jobs:
