@@ -1,4 +1,4 @@
-name: gpt_service  # El nombre de la acción ahora se toma del valor de la variable de entorno SERVICE_NAME
+name: gpt_service
 
 on:
   push:
@@ -6,8 +6,8 @@ on:
       - "master"
 
 env:
-  SERVICE_NAME: gptalexa  # Definir la variable SERVICE_NAME aquí
-  SERVICE_VERSION: latest  # Definir la versión del servicio aquí
+  SERVICE_NAME: gptalexa
+  SERVICE_VERSION: latest
 
 jobs:
   docker:
@@ -29,12 +29,15 @@ jobs:
 
       - name: Build and push
         run: |
+          echo "Iniciando construcción de la imagen..."
           # Construir y etiquetar la imagen con Docker Buildx
           docker buildx build --platform linux/amd64,linux/arm64 -t ${{ secrets.DOCKER_USER }}/${{ env.SERVICE_NAME }}:${{ env.SERVICE_VERSION }} .
 
+          echo "Etiquetando la imagen para GitHub Container Registry..."
           # Etiquetar la imagen para GitHub Container Registry
           docker tag ${{ secrets.DOCKER_USER }}/${{ env.SERVICE_NAME }}:${{ env.SERVICE_VERSION }} ghcr.io/${{ github.repository_owner }}/${{ env.SERVICE_NAME }}:${{ env.SERVICE_VERSION }}
 
+          echo "Empujando las imágenes a Docker Hub y GitHub Container Registry..."
           # Hacer push de las imágenes a Docker Hub y GitHub Container Registry
           docker push ${{ secrets.DOCKER_USER }}/${{ env.SERVICE_NAME }}:${{ env.SERVICE_VERSION }}
           docker push ghcr.io/${{ github.repository_owner }}/${{ env.SERVICE_NAME }}:${{ env.SERVICE_VERSION }}
