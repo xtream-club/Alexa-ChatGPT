@@ -2,11 +2,11 @@
 
 ![Alexa GPT](https://i.imgur.com/uk5sv5G.png)
 
-[![License](https://img.shields.io/github/license/xtream-club/alexa-gpt)](LICENSE)
+[![License](https://img.shields.io/github/license/xtream-club/Alexa-ChatGPT)](LICENSE)
 
-[![Last Commit](https://img.shields.io/github/last-commit/xtream-club/alexa-gpt)](https://github.com/xtream-club/alexa-chatgpt/commits/master)
+[![Last Commit](https://img.shields.io/github/last-commit/xtream-club/Alexa-ChatGPT)](https://github.com/xtream-club/Alexa-ChatGPT/commits/master)
 
-[![Issues](https://img.shields.io/github/issues/xtream-club/alexa-gpt)](https://github.com/xtream-club/alexa-chatgpt/issues)
+[![Issues](https://img.shields.io/github/issues/xtream-club/Alexa-ChatGPT)](https://github.com/xtream-club/Alexa-ChatGPT/issues)
 
 ## ¡Bienvenido a Alexa ChatGPT!
 
@@ -96,7 +96,7 @@ Puedes alojar y ejecutar Alexa ChatGPT de dos formas:
 4. **Ejecución del contenedor:** Ejecuta el contenedor utilizando el siguiente comando:
 
    ```bash
-   docker run -d -p 5000:5000 tecnodaniel/alexa-gpt:latest
+   docker run -d -p 5001:5001 tecnodaniel/alexa-gpt:latest
    ```
 
 5. **Configuración de Alexa:** En la consola de Amazon Developer, configura la URL de tu endpoint utilizando la dirección IP y el puerto de tu Raspberry Pi o computadora donde se está ejecutando el contenedor (por ejemplo, `http://192.168.1.100:5001`).
@@ -119,7 +119,7 @@ Para probar el funcionamiento de Alexa ChatGPT, sigue estos pasos:
 
 ### Licencia
 
-Este proyecto está licenciado bajo la Licencia MIT. Consulta el archivo [LICENSE](LICENSE) para más detalles.
+Este proyecto está licenciado bajo la Licencia MIT.
 
 ### Contacto
 
