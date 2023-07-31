@@ -14,6 +14,15 @@ random_responses = [
     "Estoy listo para responder. Adelante, pregúntame lo que quieras."
 ]
 
+# Sugerencias de preguntas para iniciar la conversación
+suggested_questions = [
+    "Cuéntame un chiste.",
+    "¿Cuál es la capital de Francia?",
+    "¿Qué es el efecto invernadero?",
+    "Háblame sobre la teoría de la relatividad.",
+    "¿Cómo puedo cocinar una pizza?"
+]
+
 # Caché con tiempo de vida para almacenar respuestas previas
 response_cache = TTLCache(maxsize=100, ttl=60)  # Tiempo de vida de 60 segundos
 
@@ -55,8 +64,10 @@ async def chat_with_gpt(request: Request):
         data = await request.json()
 
         if data["request"]["type"] == "LaunchRequest":
-            # Respuesta para el inicio de la conversación
-            response_text = "¡Hola! Soy tu asistente virtual, listo para responder tus preguntas. ¿En qué puedo ayudarte hoy?"
+            # Respuesta para el inicio de la conversación con sugerencias de preguntas
+            welcome_message = "¡Hola! Soy tu asistente virtual, listo para responder tus preguntas. ¿En qué puedo ayudarte hoy?"
+            suggested_qs = "Puedes preguntarme sobre: " + ", ".join(suggested_questions)
+            response_text = f"{welcome_message} {suggested_qs}"
         elif data["request"]["type"] == "IntentRequest":
             # Si es una solicitud de intent, obtener el valor del slot "query"
             query = data["request"]["intent"]["slots"]["query"]["value"]
