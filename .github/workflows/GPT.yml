@@ -10,7 +10,7 @@ env:
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
   GITHUB_REGISTRY_USERNAME: ${{ github.repository_owner }}
   GITHUB_REGISTRY_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  DOCKER_IMAGE_NAME: gpt
+  DOCKER_IMAGE_NAME: alexa-gpt
   DOCKER_IMAGE_TAG: latest
 
 jobs:
