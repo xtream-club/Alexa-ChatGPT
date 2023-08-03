@@ -36,7 +36,7 @@ def get_chatgpt_response(query):
     # Realizar la llamada a la API de chatgpt utilizando el modelo GPT-3.5-turbo
     response = g4f.ChatCompletion.create(
         model='gpt-3.5-turbo',
-        provider=g4f.Provider.DeepAi,
+        provider=g4f.Provider.ChatgptAi,
         messages=[{"role": "user", "content": query}]
     )
 
