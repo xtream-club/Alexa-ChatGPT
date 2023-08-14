@@ -71,7 +71,10 @@ async def chat_with_gpt(request: Request):
         elif data["request"]["type"] == "IntentRequest":
             # Si es una solicitud de intent, obtener el valor del slot "query"
             query = data["request"]["intent"]["slots"]["query"]["value"]
+            print("es query")
+            print("query")
             response_text = get_chatgpt_response(query)
+            print(response_text)
         else:
             # Si es otro tipo de solicitud, responder con una respuesta aleatoria
             response_text = get_random_response()
